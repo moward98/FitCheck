@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity } from 'react-native'
 import { Camera } from 'expo-camera'
 import { homepageStyle } from './styleHome.js'
+import { Ionicons } from '@expo/vector-icons';
 // import * as Permissions from 'expo-permissions'
 
 function Homepage (){
@@ -35,7 +36,7 @@ function Homepage (){
                 : Camera.Constants.Type.back
             );
           }}>
-          <Text style={homepageStyle.text}> Flip </Text>
+          <Ionicons name="camera-reverse-outline" size={32} color="black" />
         </TouchableOpacity>
       </View>
     </Camera>
