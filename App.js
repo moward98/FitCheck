@@ -5,7 +5,8 @@ import Homepage from './components/Homepage.js';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Homepage/>
+      {/* <Homepage/> */}
+      <View style={styles.navBar}/>
     </View>
   );
 }
@@ -18,5 +19,10 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     paddingLeft: 25,
   },
+  navBar: {
+    flex: 0.5,
+    flexDirection: 'row',
+    color: 'blue',
+  }
 });
 

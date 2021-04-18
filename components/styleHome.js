@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 const homepageStyle = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: "row"
     },
     camera: {
         flex: 1,
@@ -21,6 +22,10 @@ const homepageStyle = StyleSheet.create({
         fontSize: 18,
         color: 'white',
     },
+    navBar: {
+        color: 'black',
+        justifyContent: 'flex-end'
+    }
 })
 
 export { homepageStyle }

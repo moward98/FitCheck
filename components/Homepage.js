@@ -26,20 +26,20 @@ function Homepage (){
   return (
   <View style={homepageStyle.container}>
     <Camera style={homepageStyle.camera} type={type}>
-      <View style={homepageStyle.buttonContainer}>
-        <TouchableOpacity
-          style={homepageStyle.button}
-          onPress={() => {
-            setType(
-              type === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
-            );
-          }}>
-          <Ionicons name="camera-reverse-outline" size={32} color="black" />
-        </TouchableOpacity>
-      </View>
-    </Camera>
+        <View style={homepageStyle.buttonContainer}>
+          <TouchableOpacity
+            style={homepageStyle.button}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}>
+            <Ionicons name="sync-outline" size={32} color="black" />
+          </TouchableOpacity>
+        </View>
+      </Camera>
   </View>
   );
 };
