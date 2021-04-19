@@ -7,20 +7,20 @@ const homepageStyle = StyleSheet.create({
     camera: {
         flex: 1,
     },
-    buttonContainer: {
-        flex: 1,
-        backgroundColor: 'transparent',
-        margin: 20,
-    },
     button: {
         flex: 0.1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
+        justifyContent: 'center'
     },
     text: {
         fontSize: 18,
         color: 'white',
     },
+    navBar: {
+        flex: 0.125,
+        justifyContent: 'flex-end',
+        flexDirection: "row",
+        backgroundColor: "white",
+    }
 })
 
 export { homepageStyle }
