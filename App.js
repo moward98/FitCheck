@@ -4,15 +4,16 @@ import Homepage from './components/Homepage.js';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Homepage/>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Homepage />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 100,
   },
 });
 
