@@ -18,32 +18,22 @@ function Homepage (){
 
       const { statusRoll } = await MediaLibrary.requestPermissionsAsync();
       setHasLibPermission(statusRoll === 'granted')
-      console.log(statusRoll)
-      if (statusRoll === 'granted') {
-        setHasLibPermission(true)
-      } else {
-      console.log('Uh oh! The user has not granted us permission.');
-        setHasLibPermission(false)
-      }
     })();
   }, []);
 
-  // const takePicture = async () => {
-  //   let photo = await camera.takePictureAsync();
-  //   console.log(photo);
-  // };
+  const permissionAlert = () =>
+  Alert.alert(
+    "Permissions not Granted",
+    "In Device Setting allow app storage permissions ",
+    [
+      { text: "OK", onPress: () => console.log("OK Pressed") }
+    ]
+  );
 
   const takePictureAndSave = async () => {
-    let photo = await camera.takePictureAsync();
-    console.log('uri', photo);
-    const asset = await MediaLibrary.saveToLibraryAsync(photo.uri);
-    // MediaLibrary.createAlbumAsync('Expo', asset)
-    //   .then(() => {
-    //     Alert.alert('Album created!')
-    //   })
-    //   .catch(error => {
-    //     Alert.alert('An Error Occurred!')
-    //   });
+      let photo = await camera.takePictureAsync()
+      console.log('uri', photo)
+      const asset = await MediaLibrary.saveToLibraryAsync(photo.uri)
   };
 
   if (hasPermission === null ) {
