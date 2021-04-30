@@ -17,7 +17,7 @@ const homepageStyle = StyleSheet.create({
     },
     navBar: {
         flex: 0.125,
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         flexDirection: "row",
         backgroundColor: "black",
     }

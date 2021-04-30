@@ -66,7 +66,7 @@ function Homepage (){
       <TouchableOpacity
         style={homepageStyle.button}
         onPress={() => takePictureAndSave()}>
-        <Image source={require('../assets/getImageIcon.png')} style={{height: 50, width: 50}} />
+        <Image source={require('../assets/getImageIcon.png')} style={{height: 60, width: 60, alignSelf: 'center'}} />
       </TouchableOpacity>
 
       <TouchableOpacity
