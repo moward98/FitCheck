@@ -66,7 +66,7 @@ function Homepage (){
       <TouchableOpacity
         style={homepageStyle.button}
         onPress={() => takePictureAndSave()}>
-        <Ionicons name="caret-back-circle" size={32} color="white" />
+        <Image source={require('../assets/getImageIcon.png')} style={{height: 50, width: 50}} />
       </TouchableOpacity>
 
       <TouchableOpacity
