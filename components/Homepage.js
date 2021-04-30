@@ -38,6 +38,10 @@ function Homepage (){
       setPhotoUri(photo.uri)
   };
 
+  const RetakePicture = () => {
+    setPhotoUri("")
+  }
+
   if (hasPermission === null ) {
     return <Text>Bungus</Text>
   }
@@ -53,10 +57,16 @@ function Homepage (){
       : <Image source={{uri: photoUri}} style={homepageStyle.camera} />
     }
     <View style={homepageStyle.navBar}>
-    <TouchableOpacity
+      <TouchableOpacity
+        style={homepageStyle.button}
+        onPress={() => RetakePicture()}>
+        <Ionicons name="ios-home-sharp" size={32} color="white" />
+      </TouchableOpacity>
+
+      <TouchableOpacity
         style={homepageStyle.button}
         onPress={() => takePictureAndSave()}>
-        <Ionicons name="caret-back-circle" size={32} color="black" />
+        <Ionicons name="caret-back-circle" size={32} color="white" />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -68,7 +78,7 @@ function Homepage (){
               : Camera.Constants.Type.back
           );
         }}>
-        <Ionicons name="sync-outline" size={32} color="black" />
+        <Ionicons name="sync-outline" size={32} color="white" />
       </TouchableOpacity>
     </View>
   </View>

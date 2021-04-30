@@ -13,13 +13,13 @@ const homepageStyle = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        color: 'white',
+        color: 'black',
     },
     navBar: {
         flex: 0.125,
-        justifyContent: 'flex-end',
+        justifyContent: 'space-evenly',
         flexDirection: "row",
-        backgroundColor: "white",
+        backgroundColor: "black",
     }
 })
 
