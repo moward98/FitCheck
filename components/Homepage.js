@@ -43,7 +43,7 @@ function Homepage (){
   }
 
   if (hasPermission === null ) {
-    return <Text>Bungus</Text>
+    return <Text>Fuck</Text>
   }
   if (hasPermission === false ) {
     return <Text>Required access not granted</Text>;
