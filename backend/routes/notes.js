@@ -3,7 +3,7 @@ const axios = require('axios')
 const cv = require('opencv')
 
 
-cv.readImage("./routes/fuck.jpg", function(err, img) {
+cv.readImage("./routes/s.png", function(err, img) {
   if (err) {
     throw err;
   }
@@ -11,19 +11,19 @@ cv.readImage("./routes/fuck.jpg", function(err, img) {
   console.log("image width is ", img.width())
   const height = img.height();
   console.log("image height is ",img.height())
+  const buffer_w = width/10
+  const buffer_h = height/20
 
   if (width < 1 || height < 1) {
     throw new Error('Image has no size');
   }
+  // You can try more different parameters
 
-  img.detectObject(cv.FACE_CASCADE,{}, function(err, faces){
-    if (err) throw err;
-    for (var i = 0; i < faces.length; i++){
-       var face = faces[i];
-       img.ellipse(face.x + face.width / 2, face.y + face.height / 2,    face.width / 2, face.height / 2);
-     }
-       img.save("./routes/test2.jpg");
-     });
+  //dst = src.roi(rect);
+  const x = (width - buffer_w)
+  console.log("NUBER", x, buffer_w)
+  img.rectangle([buffer_w, buffer_h], [width/2, height/2], [0,0,0], 4);
+  img.save("./routes/test2.png");
 });
 
 module.exports = router
