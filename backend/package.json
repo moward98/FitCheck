@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "color-convert": "^2.0.1",
     "colorthief": "^2.3.2",
     "dominant-color": "0.0.1",
     "dotenv": "^8.2.0",

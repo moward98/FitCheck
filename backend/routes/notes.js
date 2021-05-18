@@ -2,6 +2,7 @@ const router = require('express').Router()
 const axios = require('axios')
 const cv = require('opencv')
 const ColorThief = require('colorthief');
+const convert = require('color-convert')
 
 
 cv.readImage("./routes/s.png", function(err, img) {
@@ -18,12 +19,10 @@ cv.readImage("./routes/s.png", function(err, img) {
   }
 
   let shirt_crop = img.crop(buffer_w, buffer_h, width-2*buffer_w, height/2-buffer_h)
-  console.log("mean test shirt", shirt_crop.mean())
   shirt_crop.save("./routes/shirt.png");
   
   // Copy image and crop pant region for colour detection
   let pant_crop = img.crop(buffer_w, height/2, width-2*buffer_w, height/2-buffer_h)
-  console.log("mean test pant", pant_crop.mean())
   pant_crop.save("./routes/pant.png");
 
   // Show bounds of cropping
@@ -32,8 +31,40 @@ cv.readImage("./routes/s.png", function(err, img) {
   img.save("./routes/ROI.png")  
 });
 
-ColorThief.getColor('./routes/pant.png')
-.then(color => { console.log(color) })
+// list to store colours that match
+const goodHues = []
+
+ColorThief.getColor('./routes/shirt.png')
+.then(color => { triadic(color, goodHues) })
 .catch(err => { console.log(err) })
+
+ColorThief.getColor('./routes/pant.png')
+.then(color => { pantColor = convert.rgb.hsv(color) })
+.catch(err => { console.log(err) })
+
+// find the triadic colors
+function triadic(color, goodHues){
+  var hsvColor = convert.rgb.hsv(color)
+  console.log(hsvColor)
+ 
+  var hTriad1= (hsvColor[0] + 120) % 360
+  goodHues.push(hTriad1)
+  console.log("Triad 1 Hue", hTriad1)
+
+  var hTriad2 = (hTriad1 + 120) % 360
+  goodHues.push(hTriad2)
+  console.log("Triad 2 Hue", hTriad2)
+}
+
+// check if color of pant matches with triadic colors
+for(var i = 0; i < goodHues.length; i++){
+  if((goodHues[i] - 10) <= pantColor[0] <= (goodHues[i] + 10)) {
+    console.log('match')
+  }
+  else{
+    console.log("no match")
+  }
+  console.log('in for')
+}
 
 module.exports = router
