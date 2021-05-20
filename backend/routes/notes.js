@@ -5,7 +5,7 @@ const ColorThief = require('colorthief');
 const convert = require('color-convert')
 
 
-cv.readImage("./routes/s.png", function(err, img) {
+cv.readImage("./routes/allblack.jpg", function(err, img) {
   if (err) {
     throw err;
   }
@@ -31,40 +31,83 @@ cv.readImage("./routes/s.png", function(err, img) {
   img.save("./routes/ROI.png")  
 });
 
-// list to store colours that match
-const goodHues = []
-
 ColorThief.getColor('./routes/shirt.png')
-.then(color => { triadic(color, goodHues) })
+.then(color => { triadic(color) })
 .catch(err => { console.log(err) })
 
-ColorThief.getColor('./routes/pant.png')
-.then(color => { pantColor = convert.rgb.hsv(color) })
-.catch(err => { console.log(err) })
+var hTriad1
+var hTriad2
+
+var isShirtBlack = false
+var isShirtWhite = false
 
 // find the triadic colors
-function triadic(color, goodHues){
-  var hsvColor = convert.rgb.hsv(color)
-  console.log(hsvColor)
+function triadic(color){
+
+  const triadBuff = 10
+
+  var shirtHsv = convert.rgb.hsv(color)
+  console.log("Shirt HSV is", shirtHsv)
+
+  if(shirtHsv[2] <= 10){
+    isShirtBlack = true
+  }
+  
+  if(shirtHsv[1] <= 5 && shirtHsv[2] >= 90){
+    isShirtWhite = true
+  }
  
-  var hTriad1= (hsvColor[0] + 120) % 360
-  goodHues.push(hTriad1)
+  hTriad1= ((shirtHsv[0] + 120) % 360) - triadBuff
   console.log("Triad 1 Hue", hTriad1)
 
-  var hTriad2 = (hTriad1 + 120) % 360
-  goodHues.push(hTriad2)
+  hTriad2 = ((hTriad1 + 120) % 360) + triadBuff
   console.log("Triad 2 Hue", hTriad2)
 }
 
-// check if color of pant matches with triadic colors
-for(var i = 0; i < goodHues.length; i++){
-  if((goodHues[i] - 10) <= pantColor[0] <= (goodHues[i] + 10)) {
-    console.log('match')
+ColorThief.getColor('./routes/pant.png')
+.then(pantColor => { pantColorCheck(pantColor) })
+.catch(err => { console.log(err) })
+
+function pantColorCheck(pantColor){
+  var pantHsv = convert.rgb.hsv(pantColor)
+  console.log("Pant HSV is", pantHsv)
+
+  var isPantBlack = false
+  var isPantWhite = false
+
+  if(pantHsv[2] <= 10){
+    isPantBlack = true
+  }
+  
+  if(pantHsv[1] <= 5 && pantHsv[2] >= 90){
+    isPantWhite = true
+  }
+
+  console.log(isPantBlack)
+  console.log(isShirtBlack)
+
+  console.log(isPantWhite)
+  console.log(isShirtWhite)
+  
+
+  if((isShirtBlack && !isPantBlack) || (isShirtWhite && !isPantWhite)){
+    console.log("opposite shirt and pant")
+    return true
+  }
+
+  if((isPantBlack && !isShirtBlack) || (isPantWhite && !isShirtWhite)){
+    console.log("black or white pant")
+    return true
+  }
+
+  if(hTriad1 <= pantHsv[0] || hTriad2 >= pantHsv[0]){
+    console.log("matches within triadic range")
+    return true
   }
   else{
     console.log("no match")
+    return false
   }
-  console.log('in for')
 }
 
 module.exports = router
